@@ -1,0 +1,113 @@
+<?php
+
+namespace App\Entities;
+
+use JsonSerializable;
+use App\Entities\Address;
+use App\Entities\NumbersCollection;
+
+class Person implements JsonSerializable
+{
+    private string $firstName;
+    private string $lastName;
+    private string $gender;
+    private int $age;
+    private Address $address;
+    private NumbersCollection $phoneNumbers;
+    private int $id = 0;
+
+    public function __construct(
+        string $firstName,
+        string $lastName,
+        string $gender,
+        int $age,
+        Address $address,
+        NumbersCollection $phoneNumbers
+    ) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->gender = $gender;
+        $this->age = $age;
+        $this->address = $address;
+        $this->phoneNumbers = $phoneNumbers;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): void
+    {
+        $this->gender = $gender;
+    }
+
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): void
+    {
+        $this->age = $age;
+    }
+
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function getPhoneNumbers(): NumbersCollection
+    {
+        return $this->phoneNumbers;
+    }
+
+    public function setPhoneNumbers(NumbersCollection $phoneNumbers): void
+    {
+        $this->phoneNumbers = $phoneNumbers;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+    
+    public function jsonSerialize()
+    {
+        return [
+            'name'=>$this->firstName . " " . $this->lastName,
+            'address'=>$this->address,
+            'phoneNumber'=>$this->phoneNumbers->getNumbers(),
+        ];
+    }
+}
