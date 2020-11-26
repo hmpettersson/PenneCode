@@ -12,9 +12,9 @@
     <br>
     <div style = "color:red">
         <input v-model = "deletePerson" placeholder="Person ID">
-        <button @click = "deletePerson">Delete Person</button>
+        <button style = "background-color:pink" @click = "deletePerson">Delete Person</button>
         <br>
-        <p>PersonID {{newPersonID}} deleted.</p> 
+        <p>PersonID {{newPersonID}} will be deleted.</p> 
     </div>
 </div>
 </template>
