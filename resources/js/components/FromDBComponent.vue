@@ -48,17 +48,22 @@ export default {
         getAllPersons: function(){
             const requestOptions = {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
+                    //headers: { 'Content-Type': 'application/json' },
                 };
             fetch('https://penne.test/api/persons', requestOptions)
-            .then((response)=>{
-                console.log(response)
-                response.json()
+            .then(response => {
+                const contentType = response.headers.get('content-type')
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new TypeError("Oops, we haven't got JSON!")
+                }
+                return response.json();
             })
-            // .then((jsonData) => { //jsonData istället för data??
-            //     console.log('Output: ',jasonData)
-            //     //this.persons = data.body 
-            // })
+            //.then(response=> response.json())
+            .then(data => {
+                this.persons = response.data
+                console.log("Persons: " + this.persons)
+            })
+            .catch(error => console.error(error))
         }
     }
 }
