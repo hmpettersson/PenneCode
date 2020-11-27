@@ -46,16 +46,19 @@ export default {
             this.personId.push({id: this.newId})
         },
         getAllPersons: function(){
-            fetch('https://tortellini.test/persons', {
-                method: 'get'
-            })
+            const requestOptions = {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                };
+            fetch('https://penne.test/api/persons', requestOptions)
             .then((response)=>{
-                var_dump(response)
+                console.log(response)
                 response.json()
             })
-            .then((data) => {
-                this.persons = jsonData.body 
-            })
+            // .then((jsonData) => { //jsonData istället för data??
+            //     console.log('Output: ',jasonData)
+            //     //this.persons = data.body 
+            // })
         }
     }
 }
