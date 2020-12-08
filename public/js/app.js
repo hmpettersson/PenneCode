@@ -2122,36 +2122,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FromDBComponent",
-  data: {
-    //original version har data() och returnar ett objekt
-    persons: [{
-      name: 'Star'
-    }, {
-      name: 'Dust'
-    }],
-    personID: [{
-      id: 0
-    }],
-    newPersonID: '' // return {
-    //     personId ='',
-    //};
-
+  data: function data() {
+    return {
+      newId: '',
+      persons: [],
+      personId: [{
+        id: '0'
+      }]
+    };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   methods: {
     deletePerson: function deletePerson() {
-      this.personID.push({
-        id: this.newPersonID
+      this.personId.push({
+        id: this.newId
       });
-      this.newPersonID = '';
-    } // getInputPersonId(){
-    //     return this.personId;   
-    // }
+    },
+    getAllPersons: function getAllPersons() {
+      var _this = this;
 
+      var requestOptions = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      fetch('https://penne.test/api/persons', requestOptions).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this.persons = data;
+        console.log(_this.persons[0]);
+      });
+    }
   }
 });
 
@@ -41195,13 +41210,38 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
+    _c("div", [
+      _c(
+        "button",
+        {
+          staticStyle: { "background-color": "green" },
+          on: { click: _vm.getAllPersons }
+        },
+        [_vm._v("ShowAll")]
+      )
+    ]),
+    _vm._v(" "),
     _c("br"),
     _vm._v(" "),
     _c("div", { staticStyle: { color: "green" } }, [
       _c(
         "ul",
-        _vm._l(_vm.persons, function(person, index) {
-          return _c("li", { key: index }, [_vm._v(_vm._s(person.name))])
+        _vm._l(_vm.persons, function(person) {
+          return _c("li", { key: person.name }, [
+            _vm._v("\n                Name: " + _vm._s(person["name"]) + " "),
+            _c("br"),
+            _vm._v(
+              " \n                City: " +
+                _vm._s(person["address"]["city"]) +
+                " "
+            ),
+            _c("br"),
+            _vm._v(
+              " \n                Phone Number: " +
+                _vm._s(person["phoneNumber"]) +
+                "\n            "
+            )
+          ])
         }),
         0
       )
@@ -41215,29 +41255,36 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.deletePerson,
-            expression: "deletePerson"
+            value: _vm.newId,
+            expression: "newId"
           }
         ],
-        attrs: { placeholder: "Person ID" },
-        domProps: { value: _vm.deletePerson },
+        attrs: { placeholder: "ID" },
+        domProps: { value: _vm.newId },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.deletePerson = $event.target.value
+            _vm.newId = $event.target.value
           }
         }
       }),
       _vm._v(" "),
-      _c("button", { on: { click: _vm.deletePerson } }, [
-        _vm._v("Delete Person")
-      ]),
+      _c(
+        "button",
+        {
+          staticStyle: { "background-color": "pink" },
+          on: { click: _vm.deletePerson }
+        },
+        [_vm._v("Delete Person")]
+      ),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("p", [_vm._v("PersonID " + _vm._s(_vm.newPersonID) + " deleted.")])
+      _c("br")
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c("p", [_vm._v("Person id " + _vm._s(this.newId) + " will be deleted.")])
     ])
   ])
 }
@@ -41247,7 +41294,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("h1", { staticStyle: { color: "blue" } }, [
+      _c("h1", { staticStyle: { color: "green" } }, [
         _vm._v("List of Persons currently in the database: ")
       ])
     ])
