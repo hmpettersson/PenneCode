@@ -17,14 +17,6 @@
         </ul>
     </div>
     <br>
-    <div style = "color:red">
-        <input v-model = "newId" placeholder="ID">
-        <button style = "background-color:pink" @click = "deletePerson">Delete Person</button>
-        <br> 
-    </div>
-    <div>
-        <p>Person id {{ this.newId }} will be deleted.</p>
-    </div>
 </div>
 </template>
 
@@ -33,20 +25,13 @@ export default {
     name:"FromDBComponent",
     data() {
         return{ 
-            newId:'',
             persons:[],
-            personId:[
-                {id: '0'}
-            ],
         }
     },
     mounted() {
             console.log('Component mounted.')
     },
     methods: {
-        deletePerson: function(){
-            this.personId.push({id: this.newId})
-        },
         getAllPersons: function(){
             const requestOptions = {
                     method: 'GET',

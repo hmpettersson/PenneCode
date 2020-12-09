@@ -21,6 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('from-db-component', require('./components/FromDBComponent.vue').default);
+Vue.component('delete-component', require('./components/DeleteComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
