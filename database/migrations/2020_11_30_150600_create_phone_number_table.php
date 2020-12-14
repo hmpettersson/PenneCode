@@ -14,7 +14,7 @@ class CreatePhoneNumberTable extends Migration
     public function up()
     {
         Schema::create('phone_number', function (Blueprint $table) {
-            $table->id()->unsigned()->autoIncrement()->first();
+            $table->increments('id')->first();
             $table->string('type', 20)->after('id');
             $table->string('number', 25)->after('type');
             $table->foreignId('person_id')->unsigned()->nullable()->after('number')->constrained();
