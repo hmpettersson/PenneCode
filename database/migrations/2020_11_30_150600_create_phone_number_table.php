@@ -14,10 +14,11 @@ class CreatePhoneNumberTable extends Migration
     public function up()
     {
         Schema::create('phone_number', function (Blueprint $table) {
-            $table->increments('id')->first();
-            $table->string('type', 20)->after('id');
-            $table->string('number', 25)->after('type');
-            $table->foreignId('person_id')->unsigned()->nullable()->after('number')->constrained();
+            $table->increments('id');
+            $table->string('type', 20);
+            $table->string('number', 25);
+            $table->integer('person_id')->unsigned();
+            $table->foreign('person_id')->references('id')->on('person');
             $table->timestamps();
         });
     }
