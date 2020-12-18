@@ -154,7 +154,6 @@ import validation from '../validation';
                     })
                     .then(response => {
                         console.debug(response);
-                        // ...
                     }).catch(error => {
                     console.error(error);
                     }); 

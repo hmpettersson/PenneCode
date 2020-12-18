@@ -3,6 +3,8 @@
 @section('content')
 
 <example-component></example-component>
+<from-db-component></from-db-component>
+<delete-component></delete-component>
 
 <div class="container">
     <div class="row justify-content-center">
